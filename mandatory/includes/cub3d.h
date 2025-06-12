@@ -6,31 +6,26 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:29:10 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/21 10:53:50 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:14:05 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#define WALL 1
-#define FLOOR 0
-#define BLANK 2
-
-//WALL == 1
-//FLOOR == 0
-//BLANK == 2
-
+# define WALL 1
+# define FLOOR 0
+# define BLANK 2
+# define LEFT 0
+# define RIGHT 1
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 
 # define CELL_SIZE 64
 # define FOV 60.0f
 # define VIEW_DISTANCE 15.0f
-# define RENDER_SCALE 2 // con 1 è full quality, con 2 1/2 quality per grandi distanze
-# define LOD_THRESHOLD 1.0f //distanza da cui switchare la qualità bassa
-# define TARGET_FPS 60.0f
-# define FRAME_TIME (1.0f / TARGET_FPS)
+# define RENDER_SCALE 2
+# define LOD_THRESHOLD 1.0f
 
 # define ROT_SPD 0.1f
 # define MOVE_SPEED 0.2f
@@ -64,7 +59,7 @@ typedef struct s_image
 	t_size			size;
 }	t_image;
 
-typedef struct	s_window
+typedef struct s_window
 {
 	void			*p;
 	unsigned int	color;
@@ -77,7 +72,7 @@ typedef struct s_picture
 	t_window	win;
 }	t_picture;
 
-////Parsing structures
+//Parsing structures
 typedef struct s_sizes
 {
 	int		map_height;
@@ -94,7 +89,7 @@ typedef struct s_data
 	char	*wt;
 }		t_data;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	t_data		data;
 	t_sizes		sizes;
@@ -102,7 +97,6 @@ typedef struct	s_map
 }		t_map;
 
 //Rendering structures
-
 typedef struct s_2fpoint
 {
 	float	x;
@@ -125,15 +119,15 @@ typedef struct s_player
 typedef struct s_ray
 {
 	t_2fpoint	dir;
-	t_2fpoint	side_dist; //Distanza del player dalla fine della cella
-	t_2fpoint	delta_dist;	//Distanza tra due intersezioni consecutive sullo stesso asse
-	t_2ipoint	cell_pos; //Coordinate della cella in cui si trova il raggio (dove si fa DDA)
-	t_2ipoint	step; //Contatore per switchare cella (passo)
-	float		perp_wall_dist;	//Distanza tra il player e il muro
-	int			side; //Indicatore della parte del muro colpita (verticale / orizzontale)
-	int			line_height; //Altezza del muro
-	int			draw_start; //Pixel di inizio del disegno della colonna x
-	int			draw_end; //Pixel di fine del disegno della colonna x
+	t_2fpoint	side_dist;
+	t_2fpoint	delta_dist;
+	t_2ipoint	cell_pos;
+	t_2ipoint	step;
+	float		perp_wall_dist;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
 }	t_ray;
 
 typedef struct s_raycaster
@@ -161,8 +155,6 @@ typedef struct s_keys
 	int	a;
 	int	s;
 	int	d;
-	int	left;
-	int	right;
 }	t_keys;
 
 typedef struct s_cub
@@ -179,44 +171,41 @@ typedef struct s_cub
 	double		fps_accum;
 }	t_cub;
 
-
-void	raycaster_init(t_cub *cub);
-
-void		mymlx_pixel_put(t_image *img, int x, int y, int color);
-int		render_scene(t_cub *cub);
-void		cast_ray(t_ray *ray, t_player *p, t_map *map, int x);
-void		map_plot(t_cub *cub);
+//Mlx functions
+void	mymlx_pixel_put(t_image *img, int x, int y, int color);
+void	mymlx_init(t_cub *cub, char *argv[]);
+int		mymlx_destroy(t_cub *cub);
+int		mymlx_render(t_cub *cub);
 int		mymlx_render(t_cub *cub);
 int		mymlx_exit(t_cub *cub);
-void		mymlx_init(t_cub *cub, char *argv[]);
-int		mymlx_destroy(t_cub *cub);
-int		key_handler(t_cub *cub);
-int		main_loop(t_cub *cub);
-void		draw_line(t_image *img, int x, int y_start, int y_end, unsigned int color);
-void		draw_horizontal_line(t_image *img, int y, int x_start, int x_end, unsigned int color);
-int		key_press(int keycode, t_cub *cub);
-int		key_release(int keycode, t_cub *cub);
 
-//Matrix-realted functions
-void	matrix_creation(t_map *map, int fd, int gnl_calls);
+//Mlx key handlers functions
+int		key_release(int keycode, t_cub *cub);
+int		key_press(int keycode, t_cub *cub);
+int		key_handler(t_cub *cub);
 
 //Parsing functions
-int	map_parsing(char *file, t_map *map);
-int	get_graphics(char *file, t_map *map);
-int	get_map(char *file, int gnl_calls, t_map *map);
-int	is_player(char c);
-int	save_image(int *i, char **dest, char *line);
-int	save_color(int *i, int *dest, char *line);
-int	surround_check(char *line, char *prev, char *next, int i);
+int		surround_check(char *line, char *prev, char *next, int i);
+void	matrix_creation(t_map *map, int fd, int gnl_calls);
+int		get_map(char *file, int gnl_calls, t_map *map);
+int		save_image(int *i, char **dest, char *line);
+int		save_color(int *i, int *dest, char *line);
+int		get_graphics(char *file, t_map *map);
+int		map_parsing(char *file, t_map *map);
+int		is_player(char c);
 
-
-//Utils
-void	free_function(char *line);
-int	color_helper(char *line, int j);
-int	graphics_helper(char *line, int *gnl_calls, int *result, t_map *map);
+//Parsing utils functions
+int		graphics_helper(char *line, int *gnl_calls, int *result, t_map *map);
+int		check_helper(char *line, char *prev, char *next, int *player);
 void	matrix_helper(char *line, int *matrix, int *j, t_map *map);
-int	check_helper(char *line, char *prev, char *next, int *player);
-void	sizes_helper(char *line, int fd, t_map *map);
 char	*gnl_helper(char *line, int gnl_calls, int fd);
+void	sizes_helper(char *line, int fd, t_map *map);
+int		color_helper(char *line, int j);
+void	free_function(char *line);
 
+//Rendering functions
+void	cast_ray(t_ray *ray, t_player *p, t_map *map, int x);
+void	raycaster_init(t_cub *cub);
+void	render_column(t_cub *cub, int x,
+			unsigned int ceiling_color, unsigned int floor_color);
 #endif
