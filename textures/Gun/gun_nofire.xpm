@@ -2,7 +2,7 @@
 static char *gun_nofire[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 110 2 ",
-"   c None",
+"   c white",
 ".  c black",
 "X  c #191D28",
 "o  c #1B1F2B",

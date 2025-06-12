@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:29:10 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:14:05 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:20:20 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,8 @@ int		key_press(int keycode, t_cub *cub);
 int		key_handler(t_cub *cub);
 
 //Parsing functions
-int		surround_check(char *line, char *prev, char *next, int i);
 void	matrix_creation(t_map *map, int fd, int gnl_calls);
+int		surround_check(char *line, char *prev, char *next, int i);
 int		get_map(char *file, int gnl_calls, t_map *map);
 int		save_image(int *i, char **dest, char *line);
 int		save_color(int *i, int *dest, char *line);
@@ -195,13 +195,13 @@ int		map_parsing(char *file, t_map *map);
 int		is_player(char c);
 
 //Parsing utils functions
+void	matrix_helper(char *line, int *matrix, int *j, t_map *map);
+void	sizes_helper(char *line, int fd, t_map *map);
+void	free_function(char *line);
 int		graphics_helper(char *line, int *gnl_calls, int *result, t_map *map);
 int		check_helper(char *line, char *prev, char *next, int *player);
-void	matrix_helper(char *line, int *matrix, int *j, t_map *map);
-char	*gnl_helper(char *line, int gnl_calls, int fd);
-void	sizes_helper(char *line, int fd, t_map *map);
 int		color_helper(char *line, int j);
-void	free_function(char *line);
+char	*gnl_helper(char *line, int gnl_calls, int fd);
 
 //Rendering functions
 void	cast_ray(t_ray *ray, t_player *p, t_map *map, int x);

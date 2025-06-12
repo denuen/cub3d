@@ -6,18 +6,36 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:00:06 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 16:17:15 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:56:15 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+void	set_gun_state(t_cub *cub);
+
 int	mymlx_render(t_cub *cub)
 {
-	ft_bzero(cub->pic.img.addr, SCREEN_WIDTH * SCREEN_HEIGHT * \
-			(cub->pic.img.bits_pp / 8));
-	mlx_put_image_to_window(cub->p, cub->pic.win.p, \
-							cub->pic.img.p, 0, 0);
+	int				x;
+
+	ft_bzero(cub->pic.img.addr,
+		SCREEN_WIDTH * SCREEN_HEIGHT * (cub->pic.img.bits_pp / 8));
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		cast_ray(&cub->raycaster.rays[x],
+			&cub->raycaster.player, &cub->map, x);
+		render_textures(cub, x, &cub->raycaster.rays[x]);
+		if (cub->raycaster.rays[x].perp_wall_dist > LOD_THRESHOLD)
+			x += RENDER_SCALE;
+		else
+			x++;
+	}
+	draw_minimap(cub);
+	set_gun_state(cub);
+	mlx_put_image_to_window(cub->p, cub->pic.win.p,
+		cub->pic.img.p, 0, 0);
+	update_fps_counter(cub);
 	return (0);
 }
 

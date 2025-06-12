@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:20 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:37:42 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 20:17:36 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	render_loop(t_cub *cub)
 	}
 	last_frame_time = current_time;
 	key_handler(cub);
-	return (render_scene(cub));
+	return (mymlx_render(cub));
 }
 
 int	main(int argc, char **argv)
@@ -44,8 +44,9 @@ int	main(int argc, char **argv)
 	mlx_hook(cub.pic.win.p, 2, 1L << 0, key_press, &cub);
 	mlx_hook(cub.pic.win.p, 3, 1L << 1, key_release, &cub);
 	mlx_hook(cub.pic.win.p, 17, 0, mymlx_exit, &cub);
+	mlx_mouse_hide(cub.p, cub.pic.win.p);
 	mlx_loop_hook(cub.p, render_loop, &cub);
-	render_scene(&cub);
+	mymlx_render(&cub);
 	mlx_loop(cub.p);
 	return (0);
 }

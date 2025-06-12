@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:11 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:32:40 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:58:17 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	draw_ceiling(t_cub *cub, t_ray *ray, t_image *texture, int x)
 			color = *(unsigned int *)(texture->addr \
 				+ (tex_pos.y * texture->lenght \
 				+ tex_pos.x * (texture->bits_pp / 8)));
-			mymlx_pixel_put(&cub->pic.img, x, y, filter(color, 0.4f));
+			mymlx_pixel_put(&cub->pic.img, x, y, filter(color, 0.5f));
 		}
 		y++;
 	}

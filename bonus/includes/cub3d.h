@@ -6,24 +6,21 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:24:17 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 17:12:00 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 20:17:36 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#define WALL 1
-#define FLOOR 0
-#define BLANK 2
-#define DOOR 3
-#define CEILING 4
+# define WALL 1
+# define FLOOR 0
+# define BLANK 2
+# define DOOR 3
+# define CEILING 4
 
 # define LEFT 0
 # define RIGHT 1
-//WALL == 1
-//FLOOR == 0
-//BLANK == 2
 
 # define NO_LIGHT 1
 # define LIGHT 0
@@ -34,8 +31,8 @@
 # define CELL_SIZE 64
 # define FOV 60.0f
 # define VIEW_DISTANCE 15.0f
-# define RENDER_SCALE 2 // con 1 è full quality, con 2 1/2 quality per grandi distanze
-# define LOD_THRESHOLD 1.0f //distanza da cui switchare la qualità bassa
+# define RENDER_SCALE 2
+# define LOD_THRESHOLD 1.0f
 # define TARGET_FPS 60.0f
 
 # define ROT_SPD 0.1f
@@ -44,13 +41,11 @@
 # define MAX_DIST 1e30
 
 # define MOUSE_SPEED 4
-# define LIGHT_INTERVAL 1000  // columns between light-pattern spawns
+# define MOUSE_SENSITIVITY 0.01f
+# define LIGHT_INTERVAL 1000
+
 // Minimap definitions
 # define MINIMAP_SCALE_FACTOR 100
-# define MINIMAP_CELL_SIZE (SCREEN_WIDTH / MINIMAP_SCALE_FACTOR)
-# define MINIMAP_PLAYER_SIZE (MINIMAP_CELL_SIZE / 3)
-# define MINIMAP_RIGHT_MARGIN (SCREEN_WIDTH / 80)
-# define MINIMAP_OFFSET_Y (SCREEN_HEIGHT / 60)
 
 // Minimap colors
 # define MINIMAP_WALL_COLOR 0x333333
@@ -91,7 +86,7 @@ typedef struct s_image
 	t_size			size;
 }	t_image;
 
-typedef struct	s_window
+typedef struct s_window
 {
 	void			*p;
 	unsigned int	color;
@@ -137,15 +132,15 @@ typedef struct s_cell_tex
 	int	ceiling_tex_idx;
 }	t_cell_tex;
 
-typedef struct	s_map
+typedef struct s_map
 {
-	t_data			data;
+	t_data		data;
 	t_sizes		sizes;
 	int			*matrix;
-	char			**map;
-	int				width;
-	int				height;
-	int			*doors_state;  // Array per tracciare lo stato delle porte (0=chiusa, 1=aperta)
+	char		**map;
+	int			width;
+	int			height;
+	int			*doors_state;
 }		t_map;
 
 //Rendering structures
@@ -176,15 +171,15 @@ typedef struct s_player
 typedef struct s_ray
 {
 	t_2fpoint	dir;
-	t_2fpoint	side_dist; //Distanza del player dalla fine della cella
-	t_2fpoint	delta_dist;	//Distanza tra due intersezioni consecutive sullo stesso asse
-	t_2ipoint	cell_pos; //Coordinate della cella in cui si trova il raggio (dove si fa DDA)
-	t_2ipoint	step; //Contatore per switchare cella (passo)
-	float		perp_wall_dist;	//Distanza tra il player e il muro
-	int			side; //Indicatore della parte del muro colpita (verticale / orizzontale)
-	int			line_height; //Altezza del muro
-	int			draw_start; //Pixel di inizio del disegno della colonna x
-	int			draw_end; //Pixel di fine del disegno della colonna x
+	t_2fpoint	side_dist;
+	t_2fpoint	delta_dist;
+	t_2ipoint	cell_pos;
+	t_2ipoint	step;
+	float		perp_wall_dist;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
 }	t_ray;
 
 typedef struct s_raycaster
@@ -210,8 +205,8 @@ typedef struct s_textures
 	t_image	ceiling_light;
 	t_image	ceiling_nolight;
 	t_image	hand;
-	t_image floor_light;
-	t_image floor_nolight;
+	t_image	floor_light;
+	t_image	floor_nolight;
 }	t_textures;
 
 typedef struct s_keys
@@ -238,11 +233,10 @@ typedef struct s_cub
 	double		fps_accum;
 	int			mouse_x;
 	int			mouse_times;
-	int			gun_animation_frame;  // Contatore per l'animazione della pistola
+	int			gun_animation_frame;
 }	t_cub;
 
-
-
+//Mlx functions
 void	mymlx_pixel_put(t_image *img, int x, int y, int color);
 int		mymlx_render(t_cub *cub);
 void	mymlx_init(t_cub *cub, char *argv[]);
@@ -251,7 +245,6 @@ int		mymlx_destroy(t_cub *cub);
 void	raycaster_init(t_cub *cub);
 void	draw_minimap(t_cub *cub);
 void	draw_line(t_image *img, int x, t_2ipoint range, unsigned int color);
-int		render_scene(t_cub *cub);
 void	cast_ray(t_ray *ray, t_player *p, t_map *map, int x);
 void	key_handler(t_cub *cub);
 int		key_press(int keycode, t_cub *cub);
@@ -259,9 +252,8 @@ int		key_release(int keycode, t_cub *cub);
 
 void	run_dda_algorithm(t_ray *ray, t_map *map);
 void	draw_texture_line(t_cub *cub, t_ray *ray, t_image *w_texture, int x);
-void	draw_floor_ceiling_texture(t_cub *cub, t_ray *ray, t_image *texture, int x, int is_ceiling);
-void	render_column(t_cub *cub, int x, unsigned int ceiling_color,
-		unsigned int floor_color);
+void	render_column(t_cub *cub, int x, unsigned int ceiling_color, \
+								unsigned int floor_color);
 
 t_image	*get_floor_type(t_cub *cub, int cell_x, int cell_y);
 t_image	*get_ceiling_type(t_cub *cub, int cell_x, int cell_y);
@@ -270,7 +262,7 @@ int		mouse_move(int x, int y, void *param);
 void	update_dir(t_cub *cub, int type);
 
 // Funzioni per FPS counter
-double	get_time();
+double	get_time(void);
 void	init_fps_counter(t_cub *cub);
 void	update_fps_counter(t_cub *cub);
 
@@ -278,14 +270,13 @@ void	update_fps_counter(t_cub *cub);
 void	matrix_creation(t_map *map, int fd, int gnl_calls);
 
 //Parsing functions
-int	map_parsing(char *file, t_map *map);
-int	get_graphics(char *file, t_map *map);
-int	get_map(char *file, int gnl_calls, t_map *map);
-int	is_player(char c);
-int	save_image(int *i, char **dest, char *line);
-int	save_color(int *i, int *dest, char *line);
-int	surround_check(char *line, char *prev, char *next, int i);
-
+int		map_parsing(char *file, t_map *map);
+int		get_graphics(char *file, t_map *map);
+int		get_map(char *file, int gnl_calls, t_map *map);
+int		is_player(char c);
+int		save_image(int *i, char **dest, char *line);
+int		save_color(int *i, int *dest, char *line);
+int		surround_check(char *line, char *prev, char *next, int i);
 
 //Utils
 void	check_collisions(t_cub *cub, t_2fpoint new_pos, t_2fpoint old_pos);
