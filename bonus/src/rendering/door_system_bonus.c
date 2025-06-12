@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:11:03 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 17:10:01 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:22:33 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	is_door_open(t_map *map, int x, int y)
 {
 	int	idx;
 
-	if (x < 0 || x >= map->sizes.map_lenght || y < 0 || y >= map->sizes.map_height)
+	if (x < 0 || x >= map->sizes.map_lenght \
+		|| y < 0 || y >= map->sizes.map_height)
 		return (0);
 	idx = (y * map->sizes.map_lenght + x);
 	if (idx < 0 || idx >= (map->sizes.map_height * map->sizes.map_lenght))
@@ -53,17 +54,17 @@ static int	is_player_near_door(t_cub *cub, int door_x, int door_y)
 
 	player_x = cub->raycaster.player.pos.x;
 	player_y = cub->raycaster.player.pos.y;
-	interaction_range = 1.5f; //distznza per usare la porta
-	distance = sqrtf((player_x - door_x) * (player_x - door_x) +
-					(player_y - door_y) * (player_y - door_y));
+	interaction_range = 1.5f;
+	distance = sqrtf((player_x - door_x) * (player_x - door_x) \
+					+ (player_y - door_y) * (player_y - door_y));
 	return (distance <= interaction_range);
 }
 
 void	toggle_door(t_cub *cub)
 {
 	t_2ipoint	tmp;
-	int		idx;
-	int		total_cells;
+	int			idx;
+	int			total_cells;
 
 	total_cells = cub->map.sizes.map_height * cub->map.sizes.map_lenght;
 	tmp.y = 0;
@@ -73,9 +74,9 @@ void	toggle_door(t_cub *cub)
 		while ((tmp.x)++ < cub->map.sizes.map_lenght)
 		{
 			idx = (tmp.y * cub->map.sizes.map_lenght + tmp.x);
-			if (idx >= 0 && idx < total_cells &&
-				cub->map.matrix[idx] == DOOR &&
-				is_player_near_door(cub, tmp.x, tmp.y))
+			if (idx >= 0 && idx < total_cells
+				&& cub->map.matrix[idx] == DOOR
+				&& is_player_near_door(cub, tmp.x, tmp.y))
 			{
 				if (cub->map.doors_state[idx] == 0)
 					cub->map.doors_state[idx] = 1;
@@ -86,4 +87,3 @@ void	toggle_door(t_cub *cub)
 		}
 	}
 }
-

@@ -6,21 +6,20 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:20 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/21 16:35:21 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:37:42 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int render_loop(t_cub *cub)
+int	render_loop(t_cub *cub)
 {
 	static double	last_frame_time = 0.0;
-	double		current_time;
-	double		delta_time;
+	double			current_time;
+	double			delta_time;
 
 	current_time = get_time();
 	delta_time = current_time - last_frame_time;
-
 	if (delta_time < (1.0f / TARGET_FPS))
 	{
 		usleep(((1.0f / TARGET_FPS) - delta_time) * 1000000);
@@ -30,7 +29,6 @@ int render_loop(t_cub *cub)
 	key_handler(cub);
 	return (render_scene(cub));
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -51,4 +49,3 @@ int	main(int argc, char **argv)
 	mlx_loop(cub.p);
 	return (0);
 }
-

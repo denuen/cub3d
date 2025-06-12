@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 16:16:58 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:28:44 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	mymlx_init(t_cub *cub, char *argv[])
 	cub->pic.img.p = NULL;
 	cub->pic.win.p = NULL;
 	cub->p = mlx_init();
-	cub->pic.win.p = mlx_new_window(cub->p, SCREEN_WIDTH,
-		SCREEN_HEIGHT, "Cub3d");
+	cub->pic.win.p = mlx_new_window(cub->p, SCREEN_WIDTH, \
+									SCREEN_HEIGHT, "Cub3d");
 	cub->pic.img.p = mlx_new_image(cub->p, SCREEN_WIDTH, SCREEN_HEIGHT);
-	cub->pic.img.addr = mlx_get_data_addr(cub->pic.img.p, &cub->pic.img.bits_pp, \
-							&cub->pic.img.lenght, &cub->pic.img.endian);
+	cub->pic.img.addr = mlx_get_data_addr(cub->pic.img.p, \
+			&cub->pic.img.bits_pp, &cub->pic.img.lenght, &cub->pic.img.endian);
 	cub->pic.img.size = (t_size){SCREEN_WIDTH, SCREEN_HEIGHT};
 	cub->mouse_times = 0;
 	cub->mouse_x = 0;
@@ -42,7 +42,6 @@ void	mymlx_init(t_cub *cub, char *argv[])
 	init_fps_counter(cub);
 	mlx_do_key_autorepeaton(cub->p);
 }
-
 
 void	update_dir(t_cub *cub, int type)
 {
@@ -90,9 +89,12 @@ static void	load_textures(t_cub *cub)
 	load_single_texture(cub, &cub->textures.gun_fire, cub->map.data.gun1);
 	load_single_texture(cub, &cub->textures.gun_nofire, cub->map.data.gun2);
 	load_single_texture(cub, &cub->textures.door, cub->map.data.door);
-	load_single_texture(cub, &cub->textures.ceiling_light, cub->map.data.ceiling1);
-	load_single_texture(cub, &cub->textures.ceiling_nolight, cub->map.data.ceiling2);
+	load_single_texture(cub, &cub->textures.ceiling_light, \
+											cub->map.data.ceiling1);
+	load_single_texture(cub, &cub->textures.ceiling_nolight, \
+											cub->map.data.ceiling2);
 	load_single_texture(cub, &cub->textures.hand, cub->map.data.hand);
 	load_single_texture(cub, &cub->textures.floor_light, cub->map.data.floor1);
-	load_single_texture(cub, &cub->textures.floor_nolight, cub->map.data.floor2);
+	load_single_texture(cub, &cub->textures.floor_nolight, \
+											cub->map.data.floor2);
 }

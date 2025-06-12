@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 08:21:02 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 17:10:47 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:27:07 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,8 @@ void	draw_minimap(t_cub *cub)
 	unsigned int	cell_color;
 	int				offset_from_x;
 
-	offset_from_x = SCREEN_WIDTH - \
-			(cub->map.sizes.map_lenght * MINIMAP_CELL_SIZE) - \
-			MINIMAP_RIGHT_MARGIN;
+	offset_from_x = SCREEN_WIDTH - (cub->map.sizes.map_lenght \
+		* MINIMAP_CELL_SIZE) - MINIMAP_RIGHT_MARGIN;
 	idx.y = 0;
 	while ((idx.y)++ < cub->map.sizes.map_height)
 	{
@@ -112,14 +111,14 @@ void	draw_minimap(t_cub *cub)
 		{
 			screen_pos.x = offset_from_x + idx.x * MINIMAP_CELL_SIZE;
 			screen_pos.y = MINIMAP_OFFSET_Y + idx.y * MINIMAP_CELL_SIZE;
-			if (cub->map.matrix[idx.y * cub->map.sizes.map_lenght + idx.x] == WALL)
+			if (cub->map.matrix[idx.y * cub->map.sizes.map_lenght \
+											+ idx.x] == WALL)
 				cell_color = MINIMAP_WALL_COLOR;
 			else
 				cell_color = MINIMAP_FLOOR_COLOR;
-			draw_minimap_square(&cub->pic.img, screen_pos,
+			draw_minimap_square(&cub->pic.img, screen_pos, \
 								MINIMAP_CELL_SIZE, cell_color);
 		}
 	}
 	draw_player_n_fov(cub, screen_pos, offset_from_x);
 }
-

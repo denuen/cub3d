@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:11 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 17:11:24 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:32:40 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_player(char c);
 
-unsigned int	dark_filter(unsigned int color, float factor)
+unsigned int	filter(unsigned int color, float factor)
 {
 	unsigned char	red;
 	unsigned char	green;
@@ -23,7 +23,7 @@ unsigned int	dark_filter(unsigned int color, float factor)
 	red = ((color >> 16) & 0xFF) * factor;
 	green = ((color >> 8) & 0xFF) * factor;
 	blue = (color & 0xFF) * factor;
-	return ((unsigned int)red << 16) | ((unsigned int)green << 8) | blue;
+	return (((unsigned int)red << 16) | ((unsigned int)green << 8) | blue);
 }
 
 static void	calculate_object_position(t_cub *cub, t_ray *ray, t_2ipoint tmp,
@@ -70,8 +70,8 @@ static void	draw_gun_pixel(t_cub *cub, t_image *gun, t_2ipoint screen,
 	{
 		final_screen.x = init_pos.x + screen.x;
 		final_screen.y = init_pos.y + screen.y;
-		if (final_screen.x >= 0 && final_screen.x < SCREEN_WIDTH &&
-			final_screen.y >= 0 && final_screen.y < SCREEN_HEIGHT)
+		if (final_screen.x >= 0 && final_screen.x < SCREEN_WIDTH \
+			&& final_screen.y >= 0 && final_screen.y < SCREEN_HEIGHT)
 			mymlx_pixel_put(&cub->pic.img, final_screen.x,
 				final_screen.y, color);
 	}
@@ -120,20 +120,20 @@ void	draw_ceiling(t_cub *cub, t_ray *ray, t_image *texture, int x)
 		if (tex_pos.y >= 0 && tex_pos.y < texture->size.height
 			&& tex_pos.x >= 0 && tex_pos.x < texture->size.width)
 		{
-			color = *(unsigned int *)(texture->addr
-				+ (tex_pos.y * texture->lenght
+			color = *(unsigned int *)(texture->addr \
+				+ (tex_pos.y * texture->lenght \
 				+ tex_pos.x * (texture->bits_pp / 8)));
-			mymlx_pixel_put(&cub->pic.img, x, y, dark_filter(color, 0.4f));
+			mymlx_pixel_put(&cub->pic.img, x, y, filter(color, 0.4f));
 		}
 		y++;
 	}
 }
 
-void		draw_floor(t_cub *cub, t_ray *ray, t_image *texture, int x)
+void	draw_floor(t_cub *cub, t_ray *ray, t_image *texture, int x)
 {
-	int			y;
-	t_2ipoint	tex_pos;
-	t_2fpoint	floor_pos;
+	int				y;
+	t_2ipoint		tex_pos;
+	t_2fpoint		floor_pos;
 	unsigned int	color;
 
 	y = ray->draw_end + 1;
@@ -145,22 +145,22 @@ void		draw_floor(t_cub *cub, t_ray *ray, t_image *texture, int x)
 		if (tex_pos.y >= 0 && tex_pos.y < texture->size.height
 			&& tex_pos.x >= 0 && tex_pos.x < texture->size.width)
 		{
-			color = *(unsigned int *)(texture->addr
-				+ (tex_pos.y * texture->lenght
+			color = *(unsigned int *)(texture->addr \
+				+ (tex_pos.y * texture->lenght \
 				+ tex_pos.x * (texture->bits_pp / 8)));
-			mymlx_pixel_put(&cub->pic.img, x, y, dark_filter(color, 0.6f));
+			mymlx_pixel_put(&cub->pic.img, x, y, filter(color, 0.6f));
 		}
 		y++;
 	}
 }
 
-void		draw_wall(t_cub *cub, t_ray *ray, t_image *tx, int x)
+void	draw_wall(t_cub *cub, t_ray *ray, t_image *tx, int x)
 {
 	int				y;
-	double		wall_x;
-	t_2ipoint	tx_pos;
-	double		step;
-	double		tex_pos;
+	double			wall_x;
+	t_2ipoint		tx_pos;
+	double			step;
+	double			tex_pos;
 	unsigned int	color;
 
 	if (ray->side == 0)
@@ -175,7 +175,7 @@ void		draw_wall(t_cub *cub, t_ray *ray, t_image *tx, int x)
 		|| (ray->side == 1 && ray->dir.y < 0))
 		tx_pos.x = tx->size.width - tx_pos.x - 1;
 	step = (double)tx->size.height / ray->line_height;
-	tex_pos = (ray->draw_start - SCREEN_HEIGHT / 2
+	tex_pos = (ray->draw_start - SCREEN_HEIGHT / 2 \
 		+ ray->line_height / 2) * step;
 	if (tex_pos < 0)
 		tex_pos = 0;
@@ -186,10 +186,10 @@ void		draw_wall(t_cub *cub, t_ray *ray, t_image *tx, int x)
 	{
 		tx_pos.y = (int)tex_pos & (tx->size.height - 1);
 		tex_pos += step;
-		color = *(unsigned int *)(tx->addr
-			+ (tx_pos.y * tx->lenght
+		color = *(unsigned int *)(tx->addr \
+			+ (tx_pos.y * tx->lenght \
 			+ tx_pos.x * (tx->bits_pp / 8)));
-		mymlx_pixel_put(&cub->pic.img, x, y, dark_filter(color, 0.6f));
+		mymlx_pixel_put(&cub->pic.img, x, y, filter(color, 0.6f));
 		y++;
 	}
 }
@@ -200,7 +200,7 @@ void	render_textures(t_cub *cub, int x, t_ray *ray)
 	int		cell_value;
 
 	if (x < 0 || x >= SCREEN_WIDTH)
-		return;
+		return ;
 	texture = &cub->textures.ceiling_nolight;
 	if (texture && texture->addr && texture->p)
 		draw_ceiling(cub, ray, texture, x);
@@ -208,7 +208,7 @@ void	render_textures(t_cub *cub, int x, t_ray *ray)
 		+ ray->cell_pos.x];
 	if (cell_value == DOOR)
 	{
-		if (cub->map.doors_state[ray->cell_pos.y * cub->map.sizes.map_lenght
+		if (cub->map.doors_state[ray->cell_pos.y * cub->map.sizes.map_lenght \
 			+ ray->cell_pos.x] == 0)
 		{
 			texture = &cub->textures.door;
@@ -226,5 +226,3 @@ void	render_textures(t_cub *cub, int x, t_ray *ray)
 	if (texture && texture->addr && texture->p)
 		draw_floor(cub, ray, texture, x);
 }
-
-

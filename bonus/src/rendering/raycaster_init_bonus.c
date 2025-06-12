@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:31:10 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 16:25:52 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:38:37 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	raycaster_init(t_cub *cub)
 	if (!cub->raycaster.rays)
 		exit (mymlx_destroy(cub));
 	size = cub->map.sizes;
-	idx = (t_2ipoint) {0,0};
+	idx = (t_2ipoint){0, 0};
 	while ((idx.y)++ < size.map_height)
 	{
 		idx.x = 0;

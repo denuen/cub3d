@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:14 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/26 16:25:59 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:29:17 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	set_gun_state(t_cub *cub);
 static void	calculate_wall_height(t_ray *ray);
 static void	calculate_perp_wall_dist(t_ray *ray, t_player *p);
-void	init_delta_dist(t_ray *ray);
-void	init_side_dist(t_ray *ray, t_player *p);
-void	init_ray_dir(t_ray *ray, t_player *p, float camera);
+void		init_delta_dist(t_ray *ray);
+void		init_side_dist(t_ray *ray, t_player *p);
+void		init_ray_dir(t_ray *ray, t_player *p, float camera);
 
 void	cast_ray(t_ray *ray, t_player *p, t_map *map, int x)
 {
@@ -89,7 +89,7 @@ static void	set_gun_state(t_cub *cub)
 	if (cub->keys.space)
 	{
 		cub->gun_animation_frame++;
-		if ((cub->gun_animation_frame / 5) % 2 == 0) //ogni 5 frames switcha la gun
+		if ((cub->gun_animation_frame / 4) % 2 == 0)
 			draw_gun(cub, LIGHT);
 		else
 			draw_gun(cub, NO_LIGHT);

@@ -1,47 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fps_counter.c                                      :+:      :+:    :+:   */
+/*   fps_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:30:00 by apintaur          #+#    #+#             */
-/*   Updated: 2025/05/16 07:49:02 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:25:28 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include <sys/time.h>
 
-static void snprintf_fps(char *buffer, int size, int value)
+static void	snprintf_fps(char *buffer, int size, int value)
 {
-	char *digits = "0123456789";
-	char tmp[12];
-	int i = 0;
-	int reverse_i = 0;
+	char		tmp[12];
+	t_2ipoint	idx;
 
+	idx = (t_2ipoint){0, 0};
 	if (value == 0)
 	{
 		buffer[0] = '0';
 		buffer[1] = '\0';
-		return;
+		return ;
 	}
-
-	while (value > 0 && i < 10)
+	while (value > 0 && idx.x < 10)
 	{
-		tmp[i++] = digits[value % 10];
+		tmp[(idx.x)++] = "0123456789"[value % 10];
 		value /= 10;
 	}
-
-	while (i > 0 && reverse_i < size - 1)
+	while (idx.x > 0 && idx.y < size - 1)
 	{
-		buffer[reverse_i++] = tmp[--i];
+		buffer[(idx.y)++] = tmp[--(idx.x)];
 	}
-
-	buffer[reverse_i] = '\0';
+	buffer[idx.y] = '\0';
 }
 
-double	get_time()
+double	get_time(void)
 {
 	struct timeval	tv;
 
@@ -59,10 +55,10 @@ void	init_fps_counter(t_cub *cub)
 
 void	update_fps_counter(t_cub *cub)
 {
-	double	current_time;
-	double	frame_time;
+	double		current_time;
+	double		frame_time;
 	static char	fps_text[32] = "FPS: 0";
-	int	rounded;
+	int			rounded;
 
 	current_time = get_time();
 	frame_time = current_time - cub->last_time;
