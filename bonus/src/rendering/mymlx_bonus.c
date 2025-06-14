@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:00:06 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:12:21 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:51:46 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_gun_state(t_cub *cub);
 
 int	mymlx_render(t_cub *cub)
 {
-	int				x;
+	int	x;
 
 	ft_bzero(cub->pic.img.addr,
 		SCREEN_WIDTH * SCREEN_HEIGHT * (cub->pic.img.bits_pp / 8));

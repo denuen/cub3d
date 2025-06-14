@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 08:21:02 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:49:20 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:52:02 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 void	draw_filled_fov(t_cub *cub, t_2ipoint base_offset);
 void	draw_minimap_cell(t_cub *cub, t_2ipoint idx, int cell_size, \
 								int offset_from_x);
-void	draw_minimap_square(t_image *img, t_2ipoint start,
+void	draw_minimap_square(t_image *img, t_2ipoint start, \
 				int size, unsigned int color);
-
 
 void	draw_player_n_fov(t_cub *cub, int offset_from_x)
 {
