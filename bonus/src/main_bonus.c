@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:20 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 20:17:36 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:07:05 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	render_loop(t_cub *cub)
 	double			current_time;
 	double			delta_time;
 
+	if (!cub)
+		return (1);
 	current_time = get_time();
 	delta_time = current_time - last_frame_time;
 	if (delta_time < (1.0f / TARGET_FPS))

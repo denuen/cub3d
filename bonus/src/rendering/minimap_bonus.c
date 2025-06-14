@@ -6,119 +6,63 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 08:21:02 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:50:15 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:49:20 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include <math.h>
 
-static void	draw_minimap_square(t_image *img, t_2ipoint start,
-				int size, unsigned int color)
+void	draw_filled_fov(t_cub *cub, t_2ipoint base_offset);
+void	draw_minimap_cell(t_cub *cub, t_2ipoint idx, int cell_size, \
+								int offset_from_x);
+void	draw_minimap_square(t_image *img, t_2ipoint start,
+				int size, unsigned int color);
+
+
+void	draw_player_n_fov(t_cub *cub, int offset_from_x)
 {
-	int	x;
-	int	y;
+	int			cell_size;
+	int			player_size;
+	t_2ipoint	screen_pos;
 
-	y = 0;
-	while (y < size)
-	{
-		x = 0;
-		while (x < size)
-		{
-			if ((start.x + x >= 0 && start.x + x < SCREEN_WIDTH) && \
-				(start.y + y >= 0 && start.y + y < SCREEN_HEIGHT))
-				mymlx_pixel_put(img, start.x + x, start.y + y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-static void	cast_minimap_fov_ray(t_cub *cub, t_2ipoint base_offset, float angle)
-{
-	t_2fpoint	ray_dir;
-	t_2fpoint	curr_pmap;
-	t_2ipoint	check;
-	int			steps;
-
-	ray_dir = (t_2fpoint){cosf(angle) * 0.03f, sinf(angle) * 0.03f};
-	curr_pmap = cub->raycaster.player.pos;
-	steps = 0;
-	while (steps++ < SCREEN_WIDTH / MINIMAP_SCALE_FACTOR * 5)
-	{
-		check.x = base_offset.x + (int)(curr_pmap.x * SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
-		check.y = base_offset.y + (int)(curr_pmap.y * SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
-		if ((check.x >= 0 && check.x < SCREEN_WIDTH)
-			&& (check.y >= 0 && check.y < SCREEN_HEIGHT))
-			mymlx_pixel_put(&cub->pic.img, check.x, check.y, FOV_FILL_COLOR);
-		if ((int)curr_pmap.x < 0 || (int)curr_pmap.x >= \
-			cub->map.sizes.map_lenght || (int)curr_pmap.y < 0 \
-			|| (int)curr_pmap.y >= cub->map.sizes.map_height)
-			break ;
-		if (cub->map.matrix[(int)curr_pmap.y * cub->map.sizes.map_lenght + \
-			(int)curr_pmap.x] == WALL)
-			break ;
-		curr_pmap.x += ray_dir.x;
-		curr_pmap.y += ray_dir.y;
-	}
-}
-
-static void	draw_filled_fov(t_cub *cub, t_2ipoint base_offset)
-{
-	float		player_angle;
-	float		fov_half_angle;
-	float		start_angle;
-	float		end_angle;
-
-	player_angle = atan2f(cub->raycaster.player.dir.y, \
-		cub->raycaster.player.dir.x);
-	fov_half_angle = FOV_RADIANS / 2.0f;
-	start_angle = player_angle - fov_half_angle;
-	end_angle = player_angle + fov_half_angle;
-	while (start_angle <= end_angle)
-	{
-		cast_minimap_fov_ray(cub, base_offset, start_angle);
-		start_angle += FOV_ANGLE_STEP;
-	}
-}
-
-void	draw_player_n_fov(t_cub *cub, t_2ipoint screen_pos, int offset_from_x)
-{
-	screen_pos.x = offset_from_x + \
-				(int)(cub->raycaster.player.pos.x * SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
-	screen_pos.y = (SCREEN_HEIGHT / 60) + \
-				(int)(cub->raycaster.player.pos.y * SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
-	draw_minimap_square(&cub->pic.img, (t_2ipoint){screen_pos.x - \
-		SCREEN_WIDTH / MINIMAP_SCALE_FACTOR / 2, screen_pos.y - SCREEN_WIDTH / MINIMAP_SCALE_FACTOR / 2}, \
-						SCREEN_WIDTH / MINIMAP_SCALE_FACTOR, MINIMAP_PLAYER_COLOR);
+	cell_size = SCREEN_WIDTH / MINIMAP_SCALE_FACTOR;
+	player_size = cell_size / 2;
+	screen_pos = (t_2ipoint){0, 0};
+	screen_pos.x = offset_from_x + (int)(cub->raycaster.player.pos.x
+			* SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
+	screen_pos.y = (SCREEN_HEIGHT / 60) + (int)(cub->raycaster.player.pos.y
+			* SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
+	draw_minimap_square(&cub->pic.img, (t_2ipoint){screen_pos.x - player_size, \
+			screen_pos.y - player_size}, cell_size, MINIMAP_PLAYER_COLOR);
 	draw_filled_fov(cub, (t_2ipoint){offset_from_x, (SCREEN_HEIGHT / 60)});
+}
+
+static void	draw_minimap_grid(t_cub *cub, int cell_size, int offset_from_x)
+{
+	t_2ipoint	idx;
+
+	idx.y = 0;
+	while (idx.y < cub->map.sizes.map_height)
+	{
+		idx.x = 0;
+		while (idx.x < cub->map.sizes.map_lenght)
+		{
+			draw_minimap_cell(cub, idx, cell_size, offset_from_x);
+			idx.x++;
+		}
+		idx.y++;
+	}
 }
 
 void	draw_minimap(t_cub *cub)
 {
-	t_2ipoint		idx;
-	t_2ipoint		screen_pos;
-	unsigned int	cell_color;
-	int				offset_from_x;
+	int	cell_size;
+	int	offset_from_x;
 
+	cell_size = SCREEN_WIDTH / MINIMAP_SCALE_FACTOR;
 	offset_from_x = SCREEN_WIDTH - (cub->map.sizes.map_lenght \
-		* SCREEN_WIDTH / MINIMAP_SCALE_FACTOR) - (SCREEN_WIDTH / 80);
-	idx.y = 0;
-	while ((idx.y)++ < cub->map.sizes.map_height)
-	{
-		idx.x = 0;
-		while ((idx.x)++ < cub->map.sizes.map_lenght)
-		{
-			screen_pos.x = offset_from_x + idx.x * SCREEN_WIDTH / MINIMAP_SCALE_FACTOR;
-			screen_pos.y = (SCREEN_HEIGHT / 60) + idx.y * SCREEN_WIDTH / MINIMAP_SCALE_FACTOR;
-			if (cub->map.matrix[idx.y * cub->map.sizes.map_lenght \
-											+ idx.x] == WALL)
-				cell_color = MINIMAP_WALL_COLOR;
-			else
-				cell_color = MINIMAP_FLOOR_COLOR;
-			draw_minimap_square(&cub->pic.img, screen_pos, \
-								SCREEN_WIDTH / MINIMAP_SCALE_FACTOR, cell_color);
-		}
-	}
-	draw_player_n_fov(cub, screen_pos, offset_from_x);
+								* cell_size) - (SCREEN_WIDTH / 80);
+	draw_minimap_grid(cub, cell_size, offset_from_x);
+	draw_player_n_fov(cub, offset_from_x);
 }

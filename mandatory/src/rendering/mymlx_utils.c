@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:13:04 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:20:35 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,25 @@ int	mymlx_destroy(t_cub *cub)
 {
 	if (cub)
 	{
-		mlx_destroy_image(cub->p, cub->pic.img.p);
-		mlx_destroy_image(cub->p, cub->textures.wall.east.p);
-		mlx_destroy_image(cub->p, cub->textures.wall.west.p);
-		mlx_destroy_image(cub->p, cub->textures.wall.south.p);
-		mlx_destroy_image(cub->p, cub->textures.wall.north.p);
-		mlx_destroy_window(cub->p, cub->pic.win.p);
-		free (cub->raycaster.rays);
-		free (cub->p);
+		if (cub->pic.img.p)
+			mlx_destroy_image(cub->p, cub->pic.img.p);
+		if (cub->textures.wall.east.p)
+			mlx_destroy_image(cub->p, cub->textures.wall.east.p);
+		if (cub->textures.wall.west.p)
+			mlx_destroy_image(cub->p, cub->textures.wall.west.p);
+		if (cub->textures.wall.south.p)
+			mlx_destroy_image(cub->p, cub->textures.wall.south.p);
+		if (cub->textures.wall.north.p)
+			mlx_destroy_image(cub->p, cub->textures.wall.north.p);
+		if (cub->pic.win.p)
+			mlx_destroy_window(cub->p, cub->pic.win.p);
+		if (cub->raycaster.rays)
+			free (cub->raycaster.rays);
+		if (cub->p)
+		{
+			mlx_destroy_display(cub->p);
+			free (cub->p);
+		}
 		return (1);
 	}
 	return (-1);

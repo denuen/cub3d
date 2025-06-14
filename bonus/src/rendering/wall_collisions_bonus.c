@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:36:03 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:36:22 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 11:32:50 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,12 @@ static int	is_adjacent_cell_blocking(t_cub *cub, t_2ipoint map_pos,
 	int			map_index;
 	t_2ipoint	check;
 
+	if (adjacent_coord < 0 || adjacent_coord >= cub->map.sizes.map_lenght)
+		return (0);
 	if (axis == 0)
-	{
-		check.x = adjacent_coord;
-		check.y = map_pos.y;
-		if (adjacent_coord < 0 || adjacent_coord >= cub->map.sizes.map_lenght)
-			return (0);
-	}
+		check = (t_2ipoint){adjacent_coord, map_pos.y};
 	else
-	{
-		check.x = map_pos.x;
-		check.y = adjacent_coord;
-		if (adjacent_coord < 0 || adjacent_coord >= cub->map.sizes.map_height)
-			return (0);
-	}
+		check = (t_2ipoint){map_pos.x, adjacent_coord};
 	map_index = check.y * cub->map.sizes.map_lenght + check.x;
 	if (map_index < 0 || map_index >= (cub->map.sizes.map_height \
 		* cub->map.sizes.map_lenght))

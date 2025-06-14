@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:24:17 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 20:17:36 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:00:18 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,60 +237,73 @@ typedef struct s_cub
 }	t_cub;
 
 //Mlx functions
-void	mymlx_pixel_put(t_image *img, int x, int y, int color);
-int		mymlx_render(t_cub *cub);
-void	mymlx_init(t_cub *cub, char *argv[]);
-int		mymlx_exit(t_cub *cub);
-int		mymlx_destroy(t_cub *cub);
-void	raycaster_init(t_cub *cub);
-void	draw_minimap(t_cub *cub);
-void	draw_line(t_image *img, int x, t_2ipoint range, unsigned int color);
-void	cast_ray(t_ray *ray, t_player *p, t_map *map, int x);
-void	key_handler(t_cub *cub);
-int		key_press(int keycode, t_cub *cub);
-int		key_release(int keycode, t_cub *cub);
+void			mymlx_pixel_put(t_image *img, int x, int y, int color);
+int				mymlx_render(t_cub *cub);
+void			mymlx_init(t_cub *cub, char *argv[]);
+int				mymlx_exit(t_cub *cub);
+int				mymlx_destroy(t_cub *cub);
+void			raycaster_init(t_cub *cub);
+void			draw_minimap(t_cub *cub);
+void			draw_line(t_image *img, int x, t_2ipoint range, \
+											unsigned int color);
+void			cast_ray(t_ray *ray, t_player *p, t_map *map, int x);
+void			key_handler(t_cub *cub);
+int				key_press(int keycode, t_cub *cub);
+int				key_release(int keycode, t_cub *cub);
 
-void	run_dda_algorithm(t_ray *ray, t_map *map);
-void	draw_texture_line(t_cub *cub, t_ray *ray, t_image *w_texture, int x);
-void	render_column(t_cub *cub, int x, unsigned int ceiling_color, \
+void			run_dda_algorithm(t_ray *ray, t_map *map);
+void			draw_texture_line(t_cub *cub, t_ray *ray, \
+										t_image *w_texture, int x);
+void			render_column(t_cub *cub, int x, unsigned int ceiling_color, \
 								unsigned int floor_color);
 
-t_image	*get_floor_type(t_cub *cub, int cell_x, int cell_y);
-t_image	*get_ceiling_type(t_cub *cub, int cell_x, int cell_y);
-void	draw_floor(t_cub *cub, t_ray *ray, t_image *texture, int x);
-int		mouse_move(int x, int y, void *param);
-void	update_dir(t_cub *cub, int type);
+t_image			*get_floor_type(t_cub *cub, int cell_x, int cell_y);
+t_image			*get_ceiling_type(t_cub *cub, int cell_x, int cell_y);
+void			draw_floor(t_cub *cub, t_ray *ray, t_image *texture, int x);
+int				mouse_move(int x, int y, void *param);
+void			update_dir(t_cub *cub, int type);
 
 // Funzioni per FPS counter
-double	get_time(void);
-void	init_fps_counter(t_cub *cub);
-void	update_fps_counter(t_cub *cub);
+double			get_time(void);
+void			init_fps_counter(t_cub *cub);
+void			update_fps_counter(t_cub *cub);
 
 //Matrix-realted functions
-void	matrix_creation(t_map *map, int fd, int gnl_calls);
+void			matrix_creation(t_map *map, int fd, int gnl_calls);
+
+// Rendering utils functions
+unsigned int	filter(unsigned int color, float factor);
+void			calculate_object_position(t_cub *cub, t_ray *ray, \
+								t_2ipoint tmp, t_2fpoint *pos);
+t_image			*select_gun_texture(t_cub *cub, int type);
+void			draw_gun_pixel(t_cub *cub, t_image *gun, t_2ipoint screen, \
+														t_2ipoint init_pos);
+void			draw_ceiling(t_cub *cub, t_ray *ray, t_image *texture, int x);
 
 //Parsing functions
-int		map_parsing(char *file, t_map *map);
-int		get_graphics(char *file, t_map *map);
-int		get_map(char *file, int gnl_calls, t_map *map);
-int		is_player(char c);
-int		save_image(int *i, char **dest, char *line);
-int		save_color(int *i, int *dest, char *line);
-int		surround_check(char *line, char *prev, char *next, int i);
+int				map_parsing(char *file, t_map *map);
+int				get_graphics(char *file, t_map *map);
+int				get_map(char *file, int gnl_calls, t_map *map);
+int				is_player(char c);
+int				save_image(int *i, char **dest, char *line);
+int				save_color(int *i, int *dest, char *line);
+int				surround_check(char *line, char *prev, char *next, int i);
 
 //Utils
-void	check_collisions(t_cub *cub, t_2fpoint new_pos, t_2fpoint old_pos);
-void	free_function(char *line);
-int		color_helper(char *line, int j);
-int		graphics_helper(char *line, int *gnl_calls, int *result, t_map *map);
-void	matrix_helper(char *line, int *matrix, int *j, t_map *map);
-int		check_helper(char *line, char *prev, char *next, int *player);
-void	sizes_helper(char *line, int fd, t_map *map);
-char	*gnl_helper(char *line, int gnl_calls, int fd);
-void	render_textures(t_cub *cub, int x, t_ray *ray);
-void	init_doors_state(t_map *map);
-void	toggle_door(t_cub *cub);
-int		is_door_open(t_map *map, int x, int y);
-int		get_door_index(t_map *map, int x, int y);
-void	draw_gun(t_cub *cub, int type);
+void			check_collisions(t_cub *cub, t_2fpoint new_pos, \
+											t_2fpoint old_pos);
+void			free_function(char *line);
+int				color_helper(char *line, int j);
+int				graphics_helper(char *line, int *gnl_calls, int *result, \
+														t_map *map);
+void			matrix_helper(char *line, int *matrix, int *j, t_map *map);
+int				check_helper(char *line, char *prev, char *next, int *player);
+void			sizes_helper(char *line, int fd, t_map *map);
+char			*gnl_helper(char *line, int gnl_calls, int fd);
+void			render_textures(t_cub *cub, int x, t_ray *ray);
+void			init_doors_state(t_map *map);
+void			toggle_door(t_cub *cub);
+int				is_door_open(t_map *map, int x, int y);
+int				get_door_index(t_map *map, int x, int y);
+void			draw_gun(t_cub *cub, int type);
 #endif

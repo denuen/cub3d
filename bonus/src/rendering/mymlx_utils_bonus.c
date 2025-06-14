@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:28:44 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:09:28 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void	update_dir(t_cub *cub, int type)
 
 static void	load_single_texture(t_cub *cub, t_image *img, char *path)
 {
+	if (!path)
+	{
+		ft_printf("Error: NULL texture path\n");
+		mymlx_exit(cub);
+	}
 	img->p = mlx_xpm_file_to_image(cub->p, path, \
 		&img->size.width, &img->size.height);
 	if (!img->p)
@@ -81,6 +86,11 @@ static void	load_single_texture(t_cub *cub, t_image *img, char *path)
 	}
 	img->addr = mlx_get_data_addr(img->p, &img->bits_pp, \
 		&img->lenght, &img->endian);
+	if (!img->addr)
+	{
+		ft_printf("%s Error: cannot get texture data!\n", path);
+		mymlx_exit(cub);
+	}
 }
 
 static void	load_textures(t_cub *cub)

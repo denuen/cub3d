@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:00:06 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:56:15 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:12:21 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,45 @@ void	mymlx_pixel_put(t_image *img, int x, int y, int color)
 	}
 }
 
+static void	mymlx_destroy_textures(t_cub *cub)
+{
+	if (cub->textures.wall.p)
+		mlx_destroy_image(cub->p, cub->textures.wall.p);
+	if (cub->textures.door.p)
+		mlx_destroy_image(cub->p, cub->textures.door.p);
+	if (cub->textures.gun_fire.p)
+		mlx_destroy_image(cub->p, cub->textures.gun_fire.p);
+	if (cub->textures.gun_nofire.p)
+		mlx_destroy_image(cub->p, cub->textures.gun_nofire.p);
+	if (cub->textures.ceiling_light.p)
+		mlx_destroy_image(cub->p, cub->textures.ceiling_light.p);
+	if (cub->textures.ceiling_nolight.p)
+		mlx_destroy_image(cub->p, cub->textures.ceiling_nolight.p);
+	if (cub->textures.floor_light.p)
+		mlx_destroy_image(cub->p, cub->textures.floor_light.p);
+	if (cub->textures.floor_nolight.p)
+		mlx_destroy_image(cub->p, cub->textures.floor_nolight.p);
+	if (cub->textures.hand.p)
+		mlx_destroy_image(cub->p, cub->textures.hand.p);
+}
+
 int	mymlx_destroy(t_cub *cub)
 {
 	if (cub)
 	{
-		mlx_destroy_image(cub->p, cub->pic.img.p);
-		mlx_destroy_image(cub->p, cub->textures.wall.p);
-		mlx_destroy_image(cub->p, cub->textures.door.p);
-		mlx_destroy_image(cub->p, cub->textures.gun_fire.p);
-		mlx_destroy_image(cub->p, cub->textures.gun_nofire.p);
-		mlx_destroy_image(cub->p, cub->textures.ceiling_light.p);
-		mlx_destroy_image(cub->p, cub->textures.ceiling_nolight.p);
-		mlx_destroy_image(cub->p, cub->textures.floor_light.p);
-		mlx_destroy_image(cub->p, cub->textures.floor_nolight.p);
-		mlx_destroy_window(cub->p, cub->pic.win.p);
-		free (cub->raycaster.rays);
+		if (cub->pic.img.p)
+			mlx_destroy_image(cub->p, cub->pic.img.p);
+		mymlx_destroy_textures(cub);
+		if (cub->pic.win.p)
+			mlx_destroy_window(cub->p, cub->pic.win.p);
+		if (cub->raycaster.rays)
+			free(cub->raycaster.rays);
 		if (cub->map.doors_state)
 			free(cub->map.doors_state);
-		free (cub->p);
+		if (cub->p)
+			mlx_destroy_display(cub->p);
+		if (cub->p)
+			free(cub->p);
 		return (1);
 	}
 	return (-1);

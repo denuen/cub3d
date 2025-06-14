@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:31:10 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:38:37 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:08:57 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,9 @@ void	raycaster_init(t_cub *cub)
 {
 	t_2ipoint	idx;
 	t_sizes		size;
-	char		player_char;
+	char		pc_pos;
 
 	cub->raycaster.rays = (t_ray *) malloc(sizeof(t_ray) * SCREEN_WIDTH);
-	if (!cub->raycaster.rays)
-		exit (mymlx_destroy(cub));
 	size = cub->map.sizes;
 	idx = (t_2ipoint){0, 0};
 	while ((idx.y)++ < size.map_height)
@@ -102,10 +100,10 @@ void	raycaster_init(t_cub *cub)
 		{
 			if (is_player(cub->map.matrix[idx.y * size.map_lenght + idx.x]))
 			{
-				player_char = (char)cub->map.matrix[idx.y * size.map_lenght + idx.x];
+				pc_pos = (char)cub->map.matrix[idx.y * size.map_lenght + idx.x];
 				cub->raycaster.player.pos.x = idx.x + 0.5f;
 				cub->raycaster.player.pos.y = idx.y + 0.5f;
-				init_dir_n_plane(player_char, &cub->raycaster.player);
+				init_dir_n_plane(pc_pos, &cub->raycaster.player);
 				cub->map.matrix[idx.y * size.map_lenght + idx.x] = FLOOR;
 				return ;
 			}
