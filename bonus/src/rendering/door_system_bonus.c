@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:11:03 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:22:33 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:18:40 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_door_open(t_map *map, int x, int y)
 {
 	int	idx;
 
-	if (x < 0 || x >= map->sizes.map_lenght \
+	if (x < 0 || x >= map->sizes.map_lenght
 		|| y < 0 || y >= map->sizes.map_height)
 		return (0);
 	idx = (y * map->sizes.map_lenght + x);
@@ -55,8 +55,8 @@ static int	is_player_near_door(t_cub *cub, int door_x, int door_y)
 	player_x = cub->raycaster.player.pos.x;
 	player_y = cub->raycaster.player.pos.y;
 	interaction_range = 1.5f;
-	distance = sqrtf((player_x - door_x) * (player_x - door_x) \
-					+ (player_y - door_y) * (player_y - door_y));
+	distance = sqrtf((player_x - door_x) * (player_x - door_x)
+			+ (player_y - door_y) * (player_y - door_y));
 	return (distance <= interaction_range);
 }
 

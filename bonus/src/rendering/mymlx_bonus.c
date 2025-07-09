@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:00:06 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:51:46 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:20:37 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	mymlx_pixel_put(t_image *img, int x, int y, int color)
 
 	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
 	{
-		tmp_addr = img->addr + (y * img->lenght \
-			+ x * (img->bits_pp / 8));
+		tmp_addr = img->addr + (y * img->lenght
+				+ x * (img->bits_pp / 8));
 		*((unsigned int *)tmp_addr) = color;
 	}
 }

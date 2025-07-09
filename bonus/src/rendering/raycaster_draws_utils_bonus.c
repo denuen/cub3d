@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 11:45:00 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:07:05 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 11:33:43 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_image	*select_gun_texture(t_cub *cub, int type)
 		return (&cub->textures.gun_fire);
 }
 
-void	draw_gun_pixel(t_cub *cub, t_image *gun, t_2ipoint screen, \
-												t_2ipoint init_pos)
+void	draw_gun_pixel(t_cub *cub, t_image *gun, t_2ipoint screen,
+			t_2ipoint init_pos)
 {
 	t_2ipoint		tex;
 	t_2ipoint		final_screen;
@@ -78,7 +78,7 @@ void	draw_gun_pixel(t_cub *cub, t_image *gun, t_2ipoint screen, \
 		final_screen.y = init_pos.y + screen.y;
 		if (final_screen.x >= 0 && final_screen.x < SCREEN_WIDTH
 			&& final_screen.y >= 0 && final_screen.y < SCREEN_HEIGHT)
-			mymlx_pixel_put(&cub->pic.img, final_screen.x, \
+			mymlx_pixel_put(&cub->pic.img, final_screen.x,
 				final_screen.y, color);
 	}
 }
@@ -100,9 +100,9 @@ void	draw_ceiling(t_cub *cub, t_ray *ray, t_image *texture, int x)
 		if (tex_pos.y >= 0 && tex_pos.y < texture->size.height
 			&& tex_pos.x >= 0 && tex_pos.x < texture->size.width)
 		{
-			color = *(unsigned int *)(texture->addr \
-				+ (tex_pos.y * texture->lenght \
-				+ tex_pos.x * (texture->bits_pp / 8)));
+			color = *(unsigned int *)(texture->addr
+					+ (tex_pos.y * texture->lenght
+						+ tex_pos.x * (texture->bits_pp / 8)));
 			mymlx_pixel_put(&cub->pic.img, x, y, filter(color, 0.5f));
 		}
 		y++;

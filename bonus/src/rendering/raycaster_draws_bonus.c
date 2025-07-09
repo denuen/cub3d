@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:11 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:13:05 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 11:25:20 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,30 +56,30 @@ void	draw_floor(t_cub *cub, t_ray *ray, t_image *texture, int x)
 		if (tex_pos.y >= 0 && tex_pos.y < texture->size.height
 			&& tex_pos.x >= 0 && tex_pos.x < texture->size.width)
 		{
-			color = *(unsigned int *)(texture->addr \
-				+ (tex_pos.y * texture->lenght \
-				+ tex_pos.x * (texture->bits_pp / 8)));
+			color = *(unsigned int *)(texture->addr
+					+ (tex_pos.y * texture->lenght
+						+ tex_pos.x * (texture->bits_pp / 8)));
 			mymlx_pixel_put(&cub->pic.img, x, y, filter(color, 0.6f));
 		}
 		y++;
 	}
 }
 
-static t_2ipoint	get_wall_texture_pos(t_cub *cub, t_ray *ray, \
-										t_image *texture)
+static t_2ipoint	get_wall_texture_pos(t_cub *cub, t_ray *ray,
+	t_image *texture)
 {
 	t_2fpoint	wall_pos;
 	t_2ipoint	tex_coord;
 
 	if (ray->side == 0)
-		wall_pos.x = cub->raycaster.player.pos.y + ray->perp_wall_dist \
-													* ray->dir.y;
+		wall_pos.x = cub->raycaster.player.pos.y + ray->perp_wall_dist
+			* ray->dir.y;
 	else
-		wall_pos.x = cub->raycaster.player.pos.x + ray->perp_wall_dist \
-													* ray->dir.x;
+		wall_pos.x = cub->raycaster.player.pos.x + ray->perp_wall_dist
+			* ray->dir.x;
 	wall_pos.x -= floor(wall_pos.x);
 	tex_coord.x = (int)(wall_pos.x * texture->size.width);
-	if ((ray->side == 0 && ray->dir.x > 0) \
+	if ((ray->side == 0 && ray->dir.x > 0)
 		|| (ray->side == 1 && ray->dir.y < 0))
 		tex_coord.x = texture->size.width - tex_coord.x - 1;
 	return (tex_coord);
@@ -96,8 +96,8 @@ void	draw_wall(t_cub *cub, t_ray *ray, t_image *tx, int x)
 	if (ray->line_height <= 0)
 		return ;
 	tex_calc.y = (double)tx->size.height / ray->line_height;
-	tex_calc.x = (ray->draw_start - SCREEN_HEIGHT / 2 \
-							+ ray->line_height / 2) * tex_calc.y;
+	tex_calc.x = (ray->draw_start - SCREEN_HEIGHT / 2
+			+ ray->line_height / 2) * tex_calc.y;
 	y = (ray->draw_start) * (ray->draw_start > 0);
 	while (y <= ray->draw_end && y < SCREEN_HEIGHT)
 	{
@@ -122,12 +122,12 @@ void	render_textures(t_cub *cub, int x, t_ray *ray)
 		return ;
 	if (cub->textures.ceiling_nolight.addr && cub->textures.ceiling_nolight.p)
 		draw_ceiling(cub, ray, &cub->textures.ceiling_nolight, x);
-	cell_value = cub->map.matrix[ray->cell_pos.y * cub->map.sizes.map_lenght \
+	cell_value = cub->map.matrix[ray->cell_pos.y * cub->map.sizes.map_lenght
 		+ ray->cell_pos.x];
 	if (cell_value == DOOR)
 	{
-		if (cub->map.doors_state[ray->cell_pos.y * cub->map.sizes.map_lenght \
-			+ ray->cell_pos.x] == 0)
+		if (cub->map.doors_state[ray->cell_pos.y * cub->map.sizes.map_lenght
+				+ ray->cell_pos.x] == 0)
 		{
 			if (cub->textures.door.addr && cub->textures.door.p)
 				draw_wall(cub, ray, &cub->textures.door, x);
