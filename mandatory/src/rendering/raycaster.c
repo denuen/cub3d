@@ -6,14 +6,14 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:14 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 18:59:12 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:24:06 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	draw_line(t_image *img, int x, \
-				t_2ipoint y_interval, unsigned int color);
+void	draw_line(t_image *img, int x,
+			t_2ipoint y_interval, unsigned int color);
 void	init_raydir_n_deltadist(t_ray *ray, t_player *p, float camera);
 void	update_cast_data(t_ray *ray, t_player *p, float camera);
 void	draw_textured_column(t_cub *cub, t_ray *ray, int x);
@@ -79,11 +79,11 @@ void	cast_ray(t_ray *ray, t_player *p, t_map *map, int x)
 	update_cast_data(ray, p, camera);
 	run_dda_algorithm(ray, map);
 	if (ray->side == 0)
-		ray->perp_wall_dist = fabsf((ray->cell_pos.x - p->pos.x \
-							+ (1 - ray->step.x) / 2) / ray->dir.x);
+		ray->perp_wall_dist = fabsf((ray->cell_pos.x - p->pos.x
+					+ (1 - ray->step.x) / 2) / ray->dir.x);
 	else
-		ray->perp_wall_dist = fabsf((ray->cell_pos.y - p->pos.y \
-							+ (1 - ray->step.y) / 2) / ray->dir.y);
+		ray->perp_wall_dist = fabsf((ray->cell_pos.y - p->pos.y
+					+ (1 - ray->step.y) / 2) / ray->dir.y);
 	if (ray->perp_wall_dist <= 0.1f)
 		ray->perp_wall_dist = 0.1f;
 	ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
@@ -103,22 +103,22 @@ void	render_column(t_cub *cub, int x,
 	int		inc;
 
 	ray = &cub->raycaster.rays[x];
-	draw_line(&cub->pic.img, x, (t_2ipoint){0, ray->draw_start - 1}, \
-	ceiling_color);
+	draw_line(&cub->pic.img, x, (t_2ipoint){0, ray->draw_start - 1},
+		ceiling_color);
 	draw_textured_column(cub, ray, x);
-	draw_line(&cub->pic.img, x, (t_2ipoint){ray->draw_end + 1, \
-								SCREEN_HEIGHT - 1}, floor_color);
-	inc = (1 * (ray->perp_wall_dist > LOD_THRESHOLD)) \
-				+ (RENDER_SCALE * (ray->perp_wall_dist > LOD_THRESHOLD));
+	draw_line(&cub->pic.img, x, (t_2ipoint){ray->draw_end + 1,
+		SCREEN_HEIGHT - 1}, floor_color);
+	inc = (1 * (ray->perp_wall_dist > LOD_THRESHOLD))
+		+ (RENDER_SCALE * (ray->perp_wall_dist > LOD_THRESHOLD));
 	if (inc > 1 && x + inc < SCREEN_WIDTH)
 	{
 		i = 1;
 		while (i < inc && x + i++ < SCREEN_WIDTH)
 		{
-			draw_line(&cub->pic.img, x + i, \
+			draw_line(&cub->pic.img, x + i,
 				(t_2ipoint){0, ray->draw_start - 1}, ceiling_color);
 			draw_textured_column(cub, ray, x + i);
-			draw_line(&cub->pic.img, x + i, \
+			draw_line(&cub->pic.img, x + i,
 				(t_2ipoint){ray->draw_end + 1, SCREEN_HEIGHT - 1}, floor_color);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:11 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 18:52:40 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:22:55 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	raycaster_init(t_cub *cub)
 		{
 			if (is_player(cub->map.matrix[idx.y * size.map_lenght + idx.x]))
 			{
-				player_char = (char)cub->map.matrix[idx.y * \
-								size.map_lenght + idx.x];
+				player_char = (char)cub->map.matrix[idx.y
+					* size.map_lenght + idx.x];
 				cub->raycaster.player.pos.x = idx.x + 0.5f;
 				cub->raycaster.player.pos.y = idx.y + 0.5f;
 				init_dir_n_plane(player_char, &cub->raycaster.player);

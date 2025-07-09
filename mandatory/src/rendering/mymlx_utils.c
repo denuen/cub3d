@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:20:35 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:26:57 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 void	load_texture(t_cub *cub, t_image *img, char *path)
 {
-	img->p = mlx_xpm_file_to_image(cub->p, path, &img->size.width, \
-								&img->size.height);
+	img->p = mlx_xpm_file_to_image(cub->p, path, &img->size.width,
+			&img->size.height);
 	if (!img->p)
 	{
 		ft_printf("%s Error: cannot load xpm!\n", path);
 		mymlx_exit(cub);
 	}
-	img->addr = mlx_get_data_addr(img->p, &img->bits_pp, \
-								&img->lenght, &img->endian);
+	img->addr = mlx_get_data_addr(img->p, &img->bits_pp,
+			&img->lenght, &img->endian);
 }
 
 void	mymlx_init(t_cub *cub, char *argv[])
@@ -39,10 +39,10 @@ void	mymlx_init(t_cub *cub, char *argv[])
 	cub->p = mlx_init();
 	if (!cub->p)
 		exit(EXIT_FAILURE);
-	cub->pic.win.p = mlx_new_window(cub->p, SCREEN_WIDTH, \
-								SCREEN_HEIGHT, "Cub3d");
+	cub->pic.win.p = mlx_new_window(cub->p, SCREEN_WIDTH,
+			SCREEN_HEIGHT, "Cub3d");
 	cub->pic.img.p = mlx_new_image(cub->p, SCREEN_WIDTH, SCREEN_HEIGHT);
-	cub->pic.img.addr = mlx_get_data_addr(cub->pic.img.p, \
+	cub->pic.img.addr = mlx_get_data_addr(cub->pic.img.p,
 			&cub->pic.img.bits_pp, &cub->pic.img.lenght, &cub->pic.img.endian);
 	cub->pic.img.size.width = SCREEN_WIDTH;
 	cub->pic.img.size.height = SCREEN_HEIGHT;
