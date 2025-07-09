@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:09:28 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 11:37:32 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	mymlx_init(t_cub *cub, char *argv[])
 	cub->pic.img.p = NULL;
 	cub->pic.win.p = NULL;
 	cub->p = mlx_init();
-	cub->pic.win.p = mlx_new_window(cub->p, SCREEN_WIDTH, \
-									SCREEN_HEIGHT, "Cub3d");
+	cub->pic.win.p = mlx_new_window(cub->p, SCREEN_WIDTH,
+			SCREEN_HEIGHT, "Cub3d");
 	cub->pic.img.p = mlx_new_image(cub->p, SCREEN_WIDTH, SCREEN_HEIGHT);
-	cub->pic.img.addr = mlx_get_data_addr(cub->pic.img.p, \
+	cub->pic.img.addr = mlx_get_data_addr(cub->pic.img.p,
 			&cub->pic.img.bits_pp, &cub->pic.img.lenght, &cub->pic.img.endian);
 	cub->pic.img.size = (t_size){SCREEN_WIDTH, SCREEN_HEIGHT};
 	cub->mouse_times = 0;
@@ -77,15 +77,15 @@ static void	load_single_texture(t_cub *cub, t_image *img, char *path)
 		ft_printf("Error: NULL texture path\n");
 		mymlx_exit(cub);
 	}
-	img->p = mlx_xpm_file_to_image(cub->p, path, \
-		&img->size.width, &img->size.height);
+	img->p = mlx_xpm_file_to_image(cub->p, path,
+			&img->size.width, &img->size.height);
 	if (!img->p)
 	{
 		ft_printf("%s Error: cannot load xpm!\n", path);
 		mymlx_exit(cub);
 	}
-	img->addr = mlx_get_data_addr(img->p, &img->bits_pp, \
-		&img->lenght, &img->endian);
+	img->addr = mlx_get_data_addr(img->p, &img->bits_pp,
+			&img->lenght, &img->endian);
 	if (!img->addr)
 	{
 		ft_printf("%s Error: cannot get texture data!\n", path);
@@ -99,12 +99,12 @@ static void	load_textures(t_cub *cub)
 	load_single_texture(cub, &cub->textures.gun_fire, cub->map.data.gun1);
 	load_single_texture(cub, &cub->textures.gun_nofire, cub->map.data.gun2);
 	load_single_texture(cub, &cub->textures.door, cub->map.data.door);
-	load_single_texture(cub, &cub->textures.ceiling_light, \
-											cub->map.data.ceiling1);
-	load_single_texture(cub, &cub->textures.ceiling_nolight, \
-											cub->map.data.ceiling2);
+	load_single_texture(cub, &cub->textures.ceiling_light,
+		cub->map.data.ceiling1);
+	load_single_texture(cub, &cub->textures.ceiling_nolight,
+		cub->map.data.ceiling2);
 	load_single_texture(cub, &cub->textures.hand, cub->map.data.hand);
 	load_single_texture(cub, &cub->textures.floor_light, cub->map.data.floor1);
-	load_single_texture(cub, &cub->textures.floor_nolight, \
-											cub->map.data.floor2);
+	load_single_texture(cub, &cub->textures.floor_nolight,
+		cub->map.data.floor2);
 }
