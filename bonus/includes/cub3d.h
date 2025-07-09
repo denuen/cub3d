@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:24:17 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:00:18 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 11:19:31 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,18 +244,18 @@ int				mymlx_exit(t_cub *cub);
 int				mymlx_destroy(t_cub *cub);
 void			raycaster_init(t_cub *cub);
 void			draw_minimap(t_cub *cub);
-void			draw_line(t_image *img, int x, t_2ipoint range, \
-											unsigned int color);
+void			draw_line(t_image *img, int x, t_2ipoint range,
+					unsigned int color);
 void			cast_ray(t_ray *ray, t_player *p, t_map *map, int x);
 void			key_handler(t_cub *cub);
 int				key_press(int keycode, t_cub *cub);
 int				key_release(int keycode, t_cub *cub);
 
 void			run_dda_algorithm(t_ray *ray, t_map *map);
-void			draw_texture_line(t_cub *cub, t_ray *ray, \
-										t_image *w_texture, int x);
-void			render_column(t_cub *cub, int x, unsigned int ceiling_color, \
-								unsigned int floor_color);
+void			draw_texture_line(t_cub *cub, t_ray *ray,
+					t_image *w_texture, int x);
+void			render_column(t_cub *cub, int x, unsigned int ceiling_color,
+					unsigned int floor_color);
 
 t_image			*get_floor_type(t_cub *cub, int cell_x, int cell_y);
 t_image			*get_ceiling_type(t_cub *cub, int cell_x, int cell_y);
@@ -273,11 +273,11 @@ void			matrix_creation(t_map *map, int fd, int gnl_calls);
 
 // Rendering utils functions
 unsigned int	filter(unsigned int color, float factor);
-void			calculate_object_position(t_cub *cub, t_ray *ray, \
-								t_2ipoint tmp, t_2fpoint *pos);
+void			calculate_object_position(t_cub *cub, t_ray *ray,
+					t_2ipoint tmp, t_2fpoint *pos);
 t_image			*select_gun_texture(t_cub *cub, int type);
-void			draw_gun_pixel(t_cub *cub, t_image *gun, t_2ipoint screen, \
-														t_2ipoint init_pos);
+void			draw_gun_pixel(t_cub *cub, t_image *gun, t_2ipoint screen,
+					t_2ipoint init_pos);
 void			draw_ceiling(t_cub *cub, t_ray *ray, t_image *texture, int x);
 
 //Parsing functions
@@ -290,12 +290,12 @@ int				save_color(int *i, int *dest, char *line);
 int				surround_check(char *line, char *prev, char *next, int i);
 
 //Utils
-void			check_collisions(t_cub *cub, t_2fpoint new_pos, \
-											t_2fpoint old_pos);
+void			check_collisions(t_cub *cub, t_2fpoint new_pos,
+					t_2fpoint old_pos);
 void			free_function(char *line);
 int				color_helper(char *line, int j);
-int				graphics_helper(char *line, int *gnl_calls, int *result, \
-														t_map *map);
+int				graphics_helper(char *line, int *gnl_calls, int *result,
+					t_map *map);
 void			matrix_helper(char *line, int *matrix, int *j, t_map *map);
 int				check_helper(char *line, char *prev, char *next, int *player);
 void			sizes_helper(char *line, int fd, t_map *map);
