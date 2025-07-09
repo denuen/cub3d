@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 08:21:02 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:52:02 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:17:57 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <math.h>
 
 void	draw_filled_fov(t_cub *cub, t_2ipoint base_offset);
-void	draw_minimap_cell(t_cub *cub, t_2ipoint idx, int cell_size, \
-								int offset_from_x);
-void	draw_minimap_square(t_image *img, t_2ipoint start, \
-				int size, unsigned int color);
+void	draw_minimap_cell(t_cub *cub, t_2ipoint idx, int cell_size,
+			int offset_from_x);
+void	draw_minimap_square(t_image *img, t_2ipoint start,
+			int size, unsigned int color);
 
 void	draw_player_n_fov(t_cub *cub, int offset_from_x)
 {
@@ -32,8 +32,8 @@ void	draw_player_n_fov(t_cub *cub, int offset_from_x)
 			* SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
 	screen_pos.y = (SCREEN_HEIGHT / 60) + (int)(cub->raycaster.player.pos.y
 			* SCREEN_WIDTH / MINIMAP_SCALE_FACTOR);
-	draw_minimap_square(&cub->pic.img, (t_2ipoint){screen_pos.x - player_size, \
-			screen_pos.y - player_size}, cell_size, MINIMAP_PLAYER_COLOR);
+	draw_minimap_square(&cub->pic.img, (t_2ipoint){screen_pos.x - player_size,
+		screen_pos.y - player_size}, cell_size, MINIMAP_PLAYER_COLOR);
 	draw_filled_fov(cub, (t_2ipoint){offset_from_x, (SCREEN_HEIGHT / 60)});
 }
 
@@ -60,8 +60,8 @@ void	draw_minimap(t_cub *cub)
 	int	offset_from_x;
 
 	cell_size = SCREEN_WIDTH / MINIMAP_SCALE_FACTOR;
-	offset_from_x = SCREEN_WIDTH - (cub->map.sizes.map_lenght \
-								* cell_size) - (SCREEN_WIDTH / 80);
+	offset_from_x = SCREEN_WIDTH - (cub->map.sizes.map_lenght
+			* cell_size) - (SCREEN_WIDTH / 80);
 	draw_minimap_grid(cub, cell_size, offset_from_x);
 	draw_player_n_fov(cub, offset_from_x);
 }

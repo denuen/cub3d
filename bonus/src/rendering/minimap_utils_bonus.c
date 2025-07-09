@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 12:46:09 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/14 12:49:24 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 11:35:28 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	cast_minimap_fov_ray(t_cub *cub, t_2ipoint base_offset, float angle)
 	pc_pos = cub->raycaster.player.pos;
 	while ((utils.y)++ < (utils.x) * 5)
 	{
-		if ((int)pc_pos.x < 0 || (int)pc_pos.x >= cub->map.sizes.map_lenght \
+		if ((int)pc_pos.x < 0 || (int)pc_pos.x >= cub->map.sizes.map_lenght
 			|| (int)pc_pos.y < 0 || (int)pc_pos.y >= cub->map.sizes.map_height)
 			break ;
 		check.x = base_offset.x + (int)(pc_pos.x * (utils.x));
@@ -44,8 +44,8 @@ void	draw_filled_fov(t_cub *cub, t_2ipoint base_offset)
 	float		start_angle;
 	float		end_angle;
 
-	player_angle = atan2f(cub->raycaster.player.dir.y, \
-		cub->raycaster.player.dir.x);
+	player_angle = atan2f(cub->raycaster.player.dir.y,
+			cub->raycaster.player.dir.x);
 	fov_half_angle = FOV_RADIANS / 2.0f;
 	start_angle = player_angle - fov_half_angle;
 	end_angle = player_angle + fov_half_angle;
@@ -68,8 +68,8 @@ void	draw_minimap_square(t_image *img, t_2ipoint start,
 		x = 0;
 		while (x < size)
 		{
-			if ((start.x + x >= 0 && start.x + x < SCREEN_WIDTH) && \
-				(start.y + y >= 0 && start.y + y < SCREEN_HEIGHT))
+			if ((start.x + x >= 0 && start.x + x < SCREEN_WIDTH)
+				&& (start.y + y >= 0 && start.y + y < SCREEN_HEIGHT))
 				mymlx_pixel_put(img, start.x + x, start.y + y, color);
 			x++;
 		}
@@ -77,8 +77,8 @@ void	draw_minimap_square(t_image *img, t_2ipoint start,
 	}
 }
 
-void	draw_minimap_cell(t_cub *cub, t_2ipoint idx, int cell_size, \
-								int offset_from_x)
+void	draw_minimap_cell(t_cub *cub, t_2ipoint idx, int cell_size,
+	int offset_from_x)
 {
 	t_2ipoint		screen_pos;
 	unsigned int	cell_color;
@@ -87,8 +87,8 @@ void	draw_minimap_cell(t_cub *cub, t_2ipoint idx, int cell_size, \
 	screen_pos.x = offset_from_x + idx.x * cell_size;
 	screen_pos.y = (SCREEN_HEIGHT / 60) + idx.y * cell_size;
 	matrix_index = idx.y * cub->map.sizes.map_lenght + idx.x;
-	if (matrix_index >= 0 && matrix_index < (cub->map.sizes.map_height \
-									* cub->map.sizes.map_lenght))
+	if (matrix_index >= 0 && matrix_index < (cub->map.sizes.map_height
+			* cub->map.sizes.map_lenght))
 	{
 		if (cub->map.matrix[matrix_index] == WALL)
 			cell_color = MINIMAP_WALL_COLOR;
