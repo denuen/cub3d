@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:30:04 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/06/14 12:14:15 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:21:08 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	check_helper(char *line, char *prev, char *next, int *player)
 		}
 		if (line[i] == 'D')
 		{
-			if (!not_first || ((prev[i] != '1' || next[i] != '1') \
-				&& (line[i - 1] != '1' || line[i + 1] != '1')))
+			if (!not_first || ((prev[i] != '1' || next[i] != '1')
+					&& (line[i - 1] != '1' || line[i + 1] != '1')))
 				return (1);
 		}
 		if (is_player(line[i]))
