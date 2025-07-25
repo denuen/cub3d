@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:29:10 by apintaur          #+#    #+#             */
-/*   Updated: 2025/07/25 11:32:56 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:14:35 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ typedef struct s_data
 {
 	int		floor;
 	int		ceiling;
-	char		*nt;
-	char		*st;
-	char		*et;
-	char		*wt;
+	char	*nt;
+	char	*st;
+	char	*et;
+	char	*wt;
 }		t_data;
 
 typedef struct s_map
