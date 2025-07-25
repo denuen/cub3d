@@ -6,20 +6,11 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:39:28 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/05/21 09:04:59 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:33:07 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-void	free_function(char *line)
-{
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-}
 
 int	is_player(char c)
 {
@@ -70,7 +61,7 @@ int	graphics_helper(char *line, int *gnl_calls, int *result, t_map *map)
 			result[5] = save_color(&i, &map->data.ceiling, line);
 		else if (ft_strnstr(line, "f", 1))
 			result[6] = save_color(&i, &map->data.floor, line);
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(result[0]);
 		if (i < 6)
 			(*gnl_calls)++;

@@ -6,12 +6,16 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/07/09 16:26:57 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 13:58:02 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include <stdlib.h>
+
+void	safe_free(void **p);
+void	safe_init(t_cub *cub);
+void	safe_destroy_img(void *mlx, void **img_p);
 
 void	load_texture(t_cub *cub, t_image *img, char *path)
 {
@@ -28,14 +32,12 @@ void	load_texture(t_cub *cub, t_image *img, char *path)
 
 void	mymlx_init(t_cub *cub, char *argv[])
 {
+	safe_init(cub);
 	if (!map_parsing(argv[1], &cub->map))
 	{
 		ft_printf("Error: Invalid map file\n");
-		exit (EXIT_FAILURE);
+		mymlx_exit (cub);
 	}
-	cub->p = NULL;
-	cub->pic.img.p = NULL;
-	cub->pic.win.p = NULL;
 	cub->p = mlx_init();
 	if (!cub->p)
 		exit(EXIT_FAILURE);
@@ -59,20 +61,19 @@ int	mymlx_destroy(t_cub *cub)
 {
 	if (cub)
 	{
-		if (cub->pic.img.p)
-			mlx_destroy_image(cub->p, cub->pic.img.p);
-		if (cub->textures.wall.east.p)
-			mlx_destroy_image(cub->p, cub->textures.wall.east.p);
-		if (cub->textures.wall.west.p)
-			mlx_destroy_image(cub->p, cub->textures.wall.west.p);
-		if (cub->textures.wall.south.p)
-			mlx_destroy_image(cub->p, cub->textures.wall.south.p);
-		if (cub->textures.wall.north.p)
-			mlx_destroy_image(cub->p, cub->textures.wall.north.p);
+		safe_destroy_img(cub->p, (void **) &cub->pic.img.p);
+		safe_destroy_img(cub->p, (void **) &cub->textures.wall.east.p);
+		safe_destroy_img(cub->p, (void **) &cub->textures.wall.west.p);
+		safe_destroy_img(cub->p, (void **) &cub->textures.wall.south.p);
+		safe_destroy_img(cub->p, (void **) &cub->textures.wall.north.p);
 		if (cub->pic.win.p)
 			mlx_destroy_window(cub->p, cub->pic.win.p);
-		if (cub->raycaster.rays)
-			free (cub->raycaster.rays);
+		safe_free ((void **)&cub->raycaster.rays);
+		safe_free((void **)&cub->map.matrix);
+		safe_free((void **)&cub->map.data.nt);
+		safe_free((void **)&cub->map.data.st);
+		safe_free((void **)&cub->map.data.et);
+		safe_free((void **)&cub->map.data.wt);
 		if (cub->p)
 		{
 			mlx_destroy_display(cub->p);

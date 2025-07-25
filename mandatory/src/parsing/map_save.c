@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:25:11 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/05/21 09:04:12 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:05:44 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	map_check(int fd, char *line)
 {
 	char	*prev;
 	char	*next;
-	int		player;
+	int	player;
 
 	player = 0;
 	prev = NULL;
@@ -55,14 +55,15 @@ int	map_check(int fd, char *line)
 	while (line != NULL)
 	{
 		if (check_helper(line, prev, next, &player))
-			return (1);
-		if (prev != NULL)
-			free_function(prev);
+		{
+		safe_free((void **) &prev);
+			return (1);}
+		safe_free((void **) &prev);
 		prev = line;
 		line = next;
 		next = get_next_line(fd);
 	}
-	free_function(prev);
+	safe_free((void **) &prev);
 	if (player != 1)
 		return (1);
 	return (0);
@@ -72,7 +73,7 @@ void	get_sizes(int fd, char *line, t_map *map)
 {
 	while (line[0] == '\n')
 	{
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(fd);
 	}
 	sizes_helper(line, fd, map);

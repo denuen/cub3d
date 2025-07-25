@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 09:28:36 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/05/21 09:04:44 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:32:46 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ void	matrix_population(int *matrix, int fd, int gnl_calls, t_map *map)
 	line = get_next_line(fd);
 	while (i++ < gnl_calls)
 	{
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(fd);
 	}
 	while (line[0] == '\n')
 	{
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(fd);
 	}
 	i = 0;
 	while (line)
 	{
 		matrix_helper(line, matrix, &j, map);
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(fd);
 	}
 }

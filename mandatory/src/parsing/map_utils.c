@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:30:04 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/05/21 09:04:34 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 13:47:53 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,19 @@ int	check_helper(char *line, char *prev, char *next, int *player)
 		if (line[i] == '0')
 		{
 			if (!not_first)
+			{
+				safe_free((void  **) &line);
+				safe_free((void **) &prev);
+				safe_free((void **) &next);
 				return (1);
+			}
 			if (surround_check(line, prev, next, i))
+			{
+				safe_free((void  **) &line);
+				safe_free((void **) &prev);
+				safe_free((void **) &next);
 				return (1);
+			}
 		}
 		if (is_player(line[i]))
 			(*player)++;
@@ -58,7 +68,7 @@ void	sizes_helper(char *line, int fd, t_map *map)
 		}
 		if (lenght > max_lenght)
 			max_lenght = lenght;
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(fd);
 	}
 	map->sizes.map_height = height;
@@ -72,7 +82,7 @@ char	*gnl_helper(char *line, int gnl_calls, int fd)
 	i = 0;
 	while (i < gnl_calls)
 	{
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(fd);
 		i++;
 	}

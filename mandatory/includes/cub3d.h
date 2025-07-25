@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:29:10 by apintaur          #+#    #+#             */
-/*   Updated: 2025/06/12 19:20:20 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:32:56 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ typedef struct s_data
 {
 	int		floor;
 	int		ceiling;
-	char	*nt;
-	char	*st;
-	char	*et;
-	char	*wt;
+	char		*nt;
+	char		*st;
+	char		*et;
+	char		*wt;
 }		t_data;
 
 typedef struct s_map
@@ -165,10 +165,6 @@ typedef struct s_cub
 	t_raycaster	raycaster;
 	t_textures	textures;
 	t_keys		keys;
-	int			frame_count;
-	double		last_time;
-	double		fps;
-	double		fps_accum;
 }	t_cub;
 
 //Mlx functions
@@ -197,7 +193,7 @@ int		is_player(char c);
 //Parsing utils functions
 void	matrix_helper(char *line, int *matrix, int *j, t_map *map);
 void	sizes_helper(char *line, int fd, t_map *map);
-void	free_function(char *line);
+void	safe_free(void **p);
 int		graphics_helper(char *line, int *gnl_calls, int *result, t_map *map);
 int		check_helper(char *line, char *prev, char *next, int *player);
 int		color_helper(char *line, int j);
