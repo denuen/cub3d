@@ -6,13 +6,11 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:30:04 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/07/25 15:28:57 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:52:35 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-
 
 int	safe_eject(char *line, char *prev, char *next)
 {
@@ -33,7 +31,8 @@ int	check_helper(char *line, char *prev, char *next, int *player)
 	{
 		if (line[i] == '1')
 			not_first++;
-		if (line[i] == '0' && (!not_first || surround_check(line, prev, next, i)))
+		if (line[i] == '0' && (!not_first
+				|| surround_check(line, prev, next, i)))
 			return (safe_eject(line, prev, next));
 		if (line[i] == 'D')
 		{
