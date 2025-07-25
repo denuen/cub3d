@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:25:11 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/07/25 14:05:44 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:19:00 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ int	map_check(int fd, char *line)
 	while (line != NULL)
 	{
 		if (check_helper(line, prev, next, &player))
-		{
-		safe_free((void **) &prev);
-			return (1);}
+			return (1);
 		safe_free((void **) &prev);
 		prev = line;
 		line = next;
@@ -88,7 +86,9 @@ int	get_map(char *file, int gnl_calls, t_map *map)
 	fd = open(file, O_RDONLY);
 	line = gnl_helper(line, gnl_calls, fd);
 	if (map_check(fd, line))
+	{
 		return (0);
+	}
 	close(fd);
 	get_next_line(-1);
 	fd = open(file, O_RDONLY);
