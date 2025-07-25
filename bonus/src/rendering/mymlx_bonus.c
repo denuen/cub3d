@@ -83,13 +83,13 @@ int	mymlx_destroy(t_cub *cub)
 		if (cub->pic.win.p)
 			mlx_destroy_window(cub->p, cub->pic.win.p);
 		if (cub->raycaster.rays)
-			free(cub->raycaster.rays);
+			safe_free((void **)&cub->raycaster.rays);
 		if (cub->map.doors_state)
-			free(cub->map.doors_state);
+			safe_free((void **)&cub->map.doors_state);
 		safe_free((void **)&cub->map.matrix);
 		if (cub->p)
 			mlx_destroy_display(cub->p);
-		safe_free(cub->p);
+		safe_free((void **)&cub->p);
 		return (1);
 	}
 	return (-1);
