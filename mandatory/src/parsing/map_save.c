@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:25:11 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/07/25 14:19:00 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:34:13 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	get_map(char *file, int gnl_calls, t_map *map)
 	line = gnl_helper(line, gnl_calls, fd);
 	if (map_check(fd, line))
 	{
+		get_next_line(-1);
 		return (0);
 	}
 	close(fd);
