@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:25:26 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/07/25 13:59:06 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:16:28 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	map_parsing(char *file, t_map *map)
 {
 	int	gnl_calls;
 	int	fd;
-	
+
 	gnl_calls = get_graphics(file, map);
 	if (!gnl_calls)
 		return (0);
