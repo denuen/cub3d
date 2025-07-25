@@ -1,7 +1,7 @@
 MANDATORY_NAME			= cub3d
 BONUS_NAME				= cub3d_bonus
 CC						= gcc
-CFLAGS					= -Wall -Wextra -Werror
+CFLAGS					= -g -Wall -Wextra -Werror
 
 SRC_DIR_MANDATORY	= mandatory/src/
 SRC_DIR_BONUS		= bonus/src/
@@ -12,7 +12,7 @@ LIBFT_DIR				= libft
 MLX_DIR					= .minilibx/minilibx-linux
 
 C_FILES_MANDATORY		= main.c
-RND_FILES_MANDATORY		= raycaster.c raycaster_utils.c raycaster_draws.c mymlx.c mymlx_utils.c wall_check.c
+RND_FILES_MANDATORY		= raycaster.c raycaster_utils.c mma.c raycaster_draws.c mymlx.c mymlx_utils.c wall_check.c
 PRS_FILES_MANDATORY		= map_save.c gfx_save.c matrix.c parsing.c general_utils.c map_utils.c
 
 C_FILES_BONUS			= main_bonus.c
