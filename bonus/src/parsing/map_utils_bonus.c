@@ -12,6 +12,8 @@
 
 #include "../../includes/cub3d.h"
 
+
+
 int	safe_eject(char *line, char *prev, char *next)
 {
 	safe_free((void **) &line);
@@ -31,7 +33,7 @@ int	check_helper(char *line, char *prev, char *next, int *player)
 	{
 		if (line[i] == '1')
 			not_first++;
-		if (line[i] == '0')
+		if (line[i] == '0' && (!not_first || surround_check(line, prev, next, i)))
 			return (safe_eject(line, prev, next));
 		if (line[i] == 'D')
 		{
