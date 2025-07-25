@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:25:11 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/07/25 14:34:13 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:16:56 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	map_check(int fd, char *line)
 {
 	char	*prev;
 	char	*next;
-	int	player;
+	int		player;
 
 	player = 0;
 	prev = NULL;
