@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:30:04 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/07/25 15:27:47 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:28:57 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	safe_eject(char *line, char *prev, char *next)
 	safe_free((void **) &line);
 	safe_free((void **) &prev);
 	safe_free((void **) &next);
+	return (1);
 }
 
 int	check_helper(char *line, char *prev, char *next, int *player)
