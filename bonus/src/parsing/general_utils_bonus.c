@@ -6,20 +6,13 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:39:28 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/05/21 09:16:42 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:56:09 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	free_function(char *line)
-{
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-}
+
 
 int	is_player(char c)
 {

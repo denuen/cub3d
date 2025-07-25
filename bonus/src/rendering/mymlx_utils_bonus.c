@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/07/09 11:37:32 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:57:36 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 #include <stdlib.h>
 
 static void	load_textures(t_cub *cub);
+void	safe_init(t_cub *cub);
 
 void	mymlx_init(t_cub *cub, char *argv[])
 {
+	safe_init(cub);
 	if (!map_parsing(argv[1], &cub->map))
 	{
 		ft_printf("Error: Invalid map file\n");
 		exit (EXIT_FAILURE);
 	}
-	cub->p = NULL;
-	cub->pic.img.p = NULL;
-	cub->pic.win.p = NULL;
 	cub->p = mlx_init();
 	cub->pic.win.p = mlx_new_window(cub->p, SCREEN_WIDTH,
 			SCREEN_HEIGHT, "Cub3d");

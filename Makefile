@@ -16,7 +16,7 @@ RND_FILES_MANDATORY		= raycaster.c raycaster_utils.c mma.c raycaster_draws.c mym
 PRS_FILES_MANDATORY		= map_save.c gfx_save.c matrix.c parsing.c general_utils.c map_utils.c
 
 C_FILES_BONUS			= main_bonus.c
-RND_FILES_BONUS			= mymlx_bonus.c mymlx_utils_bonus.c fps_bonus.c minimap_bonus.c minimap_utils_bonus.c wall_collisions_bonus.c raycaster_bonus.c raycaster_dda_bonus.c raycaster_draws_bonus.c raycaster_draws_utils_bonus.c raycaster_init_bonus.c mouse_move_bonus.c door_system_bonus.c key_handler.c
+RND_FILES_BONUS			= mymlx_bonus.c mymlx_utils_bonus.c mma.c fps_bonus.c minimap_bonus.c minimap_utils_bonus.c wall_collisions_bonus.c raycaster_bonus.c raycaster_dda_bonus.c raycaster_draws_bonus.c raycaster_draws_utils_bonus.c raycaster_init_bonus.c mouse_move_bonus.c door_system_bonus.c key_handler.c
 PRS_FILES_BONUS			= map_save_bonus.c gfx_save_bonus.c matrix_bonus.c parsing_bonus.c general_utils_bonus.c map_utils_bonus.c gfx_utils_bonus.c
 
 SRCS_MANDATORY			= $(C_FILES_MANDATORY) $(addprefix $(RND_DIR), $(RND_FILES_MANDATORY)) $(addprefix $(PRS_DIR), $(PRS_FILES_MANDATORY))

@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:00:06 by apintaur          #+#    #+#             */
-/*   Updated: 2025/07/09 16:20:37 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:59:28 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ int	mymlx_destroy(t_cub *cub)
 			free(cub->raycaster.rays);
 		if (cub->map.doors_state)
 			free(cub->map.doors_state);
+		safe_free((void **)&cub->map.matrix);
 		if (cub->p)
 			mlx_destroy_display(cub->p);
-		if (cub->p)
-			free(cub->p);
+		safe_free(cub->p);
 		return (1);
 	}
 	return (-1);

@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:24:17 by apintaur          #+#    #+#             */
-/*   Updated: 2025/07/09 11:19:31 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:54:28 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,7 @@ int				surround_check(char *line, char *prev, char *next, int i);
 //Utils
 void			check_collisions(t_cub *cub, t_2fpoint new_pos,
 					t_2fpoint old_pos);
-void			free_function(char *line);
+void	safe_free(void **p);
 int				color_helper(char *line, int j);
 int				graphics_helper(char *line, int *gnl_calls, int *result,
 					t_map *map);

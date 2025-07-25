@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gfx_utils.c                                        :+:      :+:    :+:   */
+/*   gfx_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 10:38:36 by ahabdelr          #+#    #+#             */
-/*   Updated: 2025/05/20 11:59:51 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:55:18 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	graphics_helper(char *line, int *gnl_calls, int *result, t_map *map)
 			result[15] = save_image(&i, &map->data.floor7, line);
 		else if (ft_strnstr(line, "F8", 2))
 			result[16] = save_image(&i, &map->data.floor8, line);
-		free_function(line);
+		safe_free((void **) &line);
 		line = get_next_line(result[0]);
 		if (i < 16)
 			(*gnl_calls)++;
