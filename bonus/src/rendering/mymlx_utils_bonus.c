@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 08:38:08 by apintaur          #+#    #+#             */
-/*   Updated: 2025/07/25 14:57:36 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:25:36 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 static void	load_textures(t_cub *cub);
-void	safe_init(t_cub *cub);
+void		safe_init(t_cub *cub);
 
 void	mymlx_init(t_cub *cub, char *argv[])
 {

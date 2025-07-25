@@ -6,7 +6,7 @@
 /*   By: apintaur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:39:59 by apintaur          #+#    #+#             */
-/*   Updated: 2025/07/25 14:54:11 by apintaur         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:25:20 by apintaur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	safe_init(t_cub *cub)
 	cub->raycaster.rays = NULL;
 }
 
-void	safe_free(void **p) 
+void	safe_free(void **p)
 {
 	if (p && *p)
 		free (*p);
